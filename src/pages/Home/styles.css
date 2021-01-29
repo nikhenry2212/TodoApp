@@ -1,7 +1,7 @@
 .App .TodoApp{
   width: 800px;
   display: flex;
-  border-bottom: 1px solid #000;
+  /* border-bottom: 1px solid #000; */
   flex-direction: column;
   height: 600px;
 }
@@ -16,16 +16,19 @@
   font-weight: bold;
   font-size: 32px;
   margin-top: 40px;
+  border-radius:20px;
 }
 .App .TodoApp .todos{
   flex: 4;
   display: flex;
   flex-direction: column;
   align-items: center;
+  color: rgb(191, 160, 204);
+  border: 1px solid #ccc;
+  border-radius: 20px;
 }
 .App .TodoApp .todos .novoTodo{
   width: 90%;
-
   margin-top: 30px;
 }
 .App .TodoApp .todos .novoTodo form{

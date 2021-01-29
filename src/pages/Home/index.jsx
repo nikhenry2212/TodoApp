@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import './styles.css';
-import axios from 'axios';
+
+import {carregaTodos, concluirTodo,excluirTodo,adicionarTodo} from './../../services/todos';
 
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
 import { faPlusCircle as add, faTrashAlt as lixeira } from '@fortawesome/free-solid-svg-icons';
@@ -13,13 +14,8 @@ const Home = props => {
   const [valorInput, setValorInput] = useState("");
 
   const carregarTarefas = useCallback(async() => {
-
-    // aqui vmamos fazer o resquest
-   const res =await axios.get("http://localhost:8000/todos");
-    console.log('res >>>>> ',res);
-    const tarefasInicial = res.data;
-
-    setTarefas([...tarefasInicial]);
+    const tarefasInicial = await carregaTodos();
+    setTarefas(tarefasInicial);
   }, []);
 
   useEffect(() => {
@@ -27,51 +23,53 @@ const Home = props => {
     carregarTarefas();
   }, [carregarTarefas]);
 
-  const concluirTarefa = (tarefa) => {
-    const tarefasTemp = [...tarefas];
-    const tarefaAtualizar = tarefasTemp.find(t => (t.id === tarefa.id));
+  const concluirTarefa = async (tarefa) => {
+    // const tarefasTemp = [...tarefas];
+    // const tarefaAtualizar = tarefasTemp.find(t => (t.id === tarefa.id));
 
-    // let tarefaAtualizar;
-    // for(let x=0; x < tarefasTemp.length; x++){
-    //   if(tarefasTemp[x].id ===tarefa.id){
-    //     tarefaAtualizar = tarefasTemp[x];
-    //   }
-    // }
+    // // let tarefaAtualizar;
+    // // for(let x=0; x < tarefasTemp.length; x++){
+    // //   if(tarefasTemp[x].id ===tarefa.id){
+    // //     tarefaAtualizar = tarefasTemp[x];
+    // //   }
+    // // }
 
-    tarefaAtualizar.concluida = !tarefaAtualizar.concluida;
-    setTarefas(tarefasTemp);
+    // tarefaAtualizar.concluida = !tarefaAtualizar.concluida;
+
+    const tarefas = await concluirTodo(tarefa);
+
+    setTarefas(tarefas);
   }
 
-  const excluirTarefa = (tarefa) => {
-    const tarefasTemp = [...tarefas];
-    const indiceTarefa = tarefasTemp.findIndex(t => (t.id === tarefa.id))
+  const excluirTarefa = async (tarefa) => {
+    // const tarefasTemp = [...tarefas];
+    // const indiceTarefa = tarefasTemp.findIndex(t => (t.id === tarefa.id))
 
-    tarefasTemp.splice(indiceTarefa, 1);
-    setTarefas(tarefasTemp);
+    // tarefasTemp.splice(indiceTarefa, 1);
+    const tarefas = await excluirTodo(tarefa);
+    setTarefas(tarefas);
     // console.log(tarefasTemp);
   }
-  const adicionarTarefa = (e) => {
+  const adicionarTarefa = async (e) => {
+    
+    if(e){
+    e.preventDefault();
+  }
+    
     if(valorInput.length > 0){
 
-      const novaTarefa = {
-        id: Date.now(),
+      const tarefa = {
         descricao: valorInput,
-        concluida: false
+        
       }
   
+      const tarefas = await adicionarTodo(tarefa)
   
-      const tarefasTemp = [...tarefas];
-  
-      tarefasTemp.push(novaTarefa);
-  
-      setTarefas(tarefasTemp);
+      setTarefas(tarefas);
       setValorInput("");
     }else{
       alert('Digite algo Idiota!')
     }
-    if(e){
-    e.preventDefault();
-  }
 
 
   }
@@ -79,7 +77,7 @@ const Home = props => {
   const renderTarefas = () => {
     return tarefas.map(tarefa => {
       return (
-        <li key={tarefa.id}>
+        <li key={tarefa._id}>
           <div className="tarefa">
             {tarefa.concluida && <div className="situacao ok " onClick={() => { (concluirTarefa(tarefa)) }}><Icon icon={tarefaRealizada} /></div>}
             {!tarefa.concluida && <div className="situacao" onClick={() => { (concluirTarefa(tarefa)) }}><Icon icon={tarefaPendente} /></div>}
