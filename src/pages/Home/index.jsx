@@ -24,17 +24,6 @@ const Home = props => {
   }, [carregarTarefas]);
 
   const concluirTarefa = async (tarefa) => {
-    // const tarefasTemp = [...tarefas];
-    // const tarefaAtualizar = tarefasTemp.find(t => (t.id === tarefa.id));
-
-    // // let tarefaAtualizar;
-    // // for(let x=0; x < tarefasTemp.length; x++){
-    // //   if(tarefasTemp[x].id ===tarefa.id){
-    // //     tarefaAtualizar = tarefasTemp[x];
-    // //   }
-    // // }
-
-    // tarefaAtualizar.concluida = !tarefaAtualizar.concluida;
 
     const tarefas = await concluirTodo(tarefa);
 
@@ -42,13 +31,9 @@ const Home = props => {
   }
 
   const excluirTarefa = async (tarefa) => {
-    // const tarefasTemp = [...tarefas];
-    // const indiceTarefa = tarefasTemp.findIndex(t => (t.id === tarefa.id))
-
-    // tarefasTemp.splice(indiceTarefa, 1);
     const tarefas = await excluirTodo(tarefa);
     setTarefas(tarefas);
-    // console.log(tarefasTemp);
+    
   }
   const adicionarTarefa = async (e) => {
     
@@ -71,7 +56,6 @@ const Home = props => {
       alert('Digite algo Idiota!')
     }
 
-
   }
 
   const renderTarefas = () => {
@@ -81,12 +65,6 @@ const Home = props => {
           <div className="tarefa">
             {tarefa.concluida && <div className="situacao ok " onClick={() => { (concluirTarefa(tarefa)) }}><Icon icon={tarefaRealizada} /></div>}
             {!tarefa.concluida && <div className="situacao" onClick={() => { (concluirTarefa(tarefa)) }}><Icon icon={tarefaPendente} /></div>}
-
-
-
-            {/* {tarefa.concluida ? <div className="situacao"><Icon icon={tarefaRealizada} /></div>
-                 :
-                  <div className="situacao"><Icon icon={tarefaPendente} /></div>} */}
 
             <div className="descricao">{tarefa.descricao}</div>
           </div>
