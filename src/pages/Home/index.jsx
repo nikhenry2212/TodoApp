@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import './styles.css';
+import axios from 'axios';
 
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
 import { faPlusCircle as add, faTrashAlt as lixeira } from '@fortawesome/free-solid-svg-icons';
@@ -11,29 +12,12 @@ const Home = props => {
   const [tarefas, setTarefas] = useState([]);
   const [valorInput, setValorInput] = useState("");
 
-  const carregarTarefas = useCallback(() => {
-    const tarefasInicial = [
-      {
-        id: 1,
-        descricao: "Aprender ReactJS",
-        concluida: false
-      },
-      {
-        id: 2,
-        descricao: "Aprender CSS3",
-        concluida: false
-      },
-      {
-        id: 3,
-        descricao: "Aprender Angular",
-        concluida: true
-      },
-      {
-        id: 4,
-        descricao: "Aprender Vue",
-        concluida: false
-      }
-    ];
+  const carregarTarefas = useCallback(async() => {
+
+    // aqui vmamos fazer o resquest
+   const res =await axios.get("http://localhost:8000/todos");
+    console.log('res >>>>> ',res);
+    const tarefasInicial = res.data;
 
     setTarefas([...tarefasInicial]);
   }, []);
