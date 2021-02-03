@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import './styles.css';
 
-import {carregaTodos, concluirTodo,excluirTodo,adicionarTodo} from './../../services/todos';
+import { carregaTodos, concluirTodo, excluirTodo, adicionarTodo, editarTodo } from './../../services/todos';
 
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
-import { faPlusCircle as add, faTrashAlt as lixeira } from '@fortawesome/free-solid-svg-icons';
+import { faPlusCircle as add, faTrashAlt as lixeira, faPencilAlt as caneta } from '@fortawesome/free-solid-svg-icons';
 import { faCircle as tarefaPendente, faCheckCircle as tarefaRealizada } from '@fortawesome/free-regular-svg-icons';
 
 
@@ -13,7 +13,7 @@ const Home = props => {
   const [tarefas, setTarefas] = useState([]);
   const [valorInput, setValorInput] = useState("");
 
-  const carregarTarefas = useCallback(async() => {
+  const carregarTarefas = useCallback(async () => {
     const tarefasInicial = await carregaTodos();
     setTarefas(tarefasInicial);
   }, []);
@@ -33,43 +33,58 @@ const Home = props => {
   const excluirTarefa = async (tarefa) => {
     const tarefas = await excluirTodo(tarefa);
     setTarefas(tarefas);
-    
+
   }
   const adicionarTarefa = async (e) => {
-    
-    if(e){
-    e.preventDefault();
-  }
-    
-    if(valorInput.length > 0){
+
+    if (e) {
+      e.preventDefault();
+    }
+
+    if (valorInput.length > 0) {
 
       const tarefa = {
         descricao: valorInput,
-        
       }
-  
+
       const tarefas = await adicionarTodo(tarefa)
-  
+
       setTarefas(tarefas);
       setValorInput("");
-    }else{
+    } else {
       alert('Digite algo Idiota!')
     }
 
   }
 
+  const editarTarefa = async (tarefa) => {
+   // eslint-disable-next-line no-unused-vars
+   // eslint-disable-next-line no-const-assign
+   const novaTarefa =  { descricao: prompt(`Digite novo valor para editar a tarefa: ${tarefa.descricao}`, tarefa.descricao) }
+   console.log(novaTarefa);
+   if(novaTarefa.descricao !== null && novaTarefa.descricao !== undefined && novaTarefa.descricao.length > 0){
+     const tarefas = await editarTodo(tarefa, novaTarefa);
+     console.log(tarefas);
+     setTarefas(tarefas);
+   }
+ 
+}
+
   const renderTarefas = () => {
     return tarefas.map(tarefa => {
+
       return (
         <li key={tarefa._id}>
           <div className="tarefa">
             {tarefa.concluida && <div className="situacao ok " onClick={() => { (concluirTarefa(tarefa)) }}><Icon icon={tarefaRealizada} /></div>}
             {!tarefa.concluida && <div className="situacao" onClick={() => { (concluirTarefa(tarefa)) }}><Icon icon={tarefaPendente} /></div>}
+            {/* {!tarefa.editar && <div className="editar" onClick={() => { (editarTarefa(tarefa)) }}><Icon icon={caneta} /></div>} */}
 
             <div className="descricao">{tarefa.descricao}</div>
           </div>
-          <div className="excluir" onClick={() => excluirTarefa(tarefa)}>
-            <Icon icon={lixeira} />
+          <div className="elementos">
+            <div className="editar" onClick={() => editarTarefa(tarefa)}><Icon icon={caneta} /></div>
+            <div className="excluir" onClick={() => excluirTarefa(tarefa)}><Icon icon={lixeira} /></div>
           </div>
         </li>
       )

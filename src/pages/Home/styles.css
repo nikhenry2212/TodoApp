@@ -57,6 +57,7 @@
   cursor: pointer;
 
 }
+
 .App .TodoApp .todos .novoTodo form button:hover{
   background-color: #b57eda;
   color:#021004;
@@ -103,6 +104,24 @@ cursor: pointer;
  margin-right: 5px;
  color: #d60b0b;
  cursor: pointer;
+}
+.App .TodoApp .todos .lista ul li .elementos{
+  display: flex;
+  height: 50px;
+  align-items: center;
+  justify-content: flex-end;
+  padding-left: 20px;
+  padding-right: 20px;
+
+}
+.App .TodoApp .todos .lista ul li .editar svg{
+  margin-top: 5px;
+  margin-right: 15px;
+  cursor: pointer;
+  color: black;
+}
+.App .TodoApp .todos .lista ul li .editar svg:hover{
+  opacity: 0.6;
 }
 
 .App .TodoApp .todos .lista ul li:last-child{

@@ -20,4 +20,8 @@ const adicionarTodo = async (tarefa) => {
   return res.data;
   
 }
-export {carregaTodos, concluirTodo, excluirTodo, adicionarTodo}
+const editarTodo = async (tarefa, descricao) => {
+  const res = await axios.put('http://localhost:8000/todos/'+tarefa._id, descricao);
+  return res.data;  
+}
+export {carregaTodos, concluirTodo, excluirTodo, adicionarTodo, editarTodo}
