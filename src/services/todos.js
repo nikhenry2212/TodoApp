@@ -11,7 +11,8 @@ const concluirTodo = async(tarefa)=> {
 }
 
 const excluirTodo = async (tarefa) => {
-  const res = await axios.delete("http://localhost:8000/todos/excluir/"+tarefa._id)
+  tarefa.deletado = true;
+  const res = await axios.put("http://localhost:8000/todos/"+tarefa._id,tarefa)
   return res.data;
 }
 
@@ -20,8 +21,8 @@ const adicionarTodo = async (tarefa) => {
   return res.data;
   
 }
-const editarTodo = async (tarefa, descricao) => {
-  const res = await axios.put('http://localhost:8000/todos/'+tarefa._id, descricao);
+const editarTodo = async (tarefa) => {
+  const res = await axios.put('http://localhost:8000/todos/'+tarefa._id, tarefa);
   return res.data;  
 }
 export {carregaTodos, concluirTodo, excluirTodo, adicionarTodo, editarTodo}

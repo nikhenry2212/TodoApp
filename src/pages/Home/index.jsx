@@ -4,7 +4,7 @@ import './styles.css';
 import { carregaTodos, concluirTodo, excluirTodo, adicionarTodo, editarTodo } from './../../services/todos';
 
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
-import { faPlusCircle as add, faTrashAlt as lixeira, faPencilAlt as caneta } from '@fortawesome/free-solid-svg-icons';
+import { faPlusCircle as add, faTrashAlt as lixeira, faPencilAlt as editButton } from '@fortawesome/free-solid-svg-icons';
 import { faCircle as tarefaPendente, faCheckCircle as tarefaRealizada } from '@fortawesome/free-regular-svg-icons';
 
 
@@ -31,8 +31,12 @@ const Home = props => {
   }
 
   const excluirTarefa = async (tarefa) => {
-    const tarefas = await excluirTodo(tarefa);
-    setTarefas(tarefas);
+    const res = await excluirTodo(tarefa);
+    if(res.status){
+      carregarTarefas();
+      }else{
+      alert(res.msg)
+     }
 
   }
   const adicionarTarefa = async (e) => {
@@ -47,9 +51,12 @@ const Home = props => {
         descricao: valorInput,
       }
 
-      const tarefas = await adicionarTodo(tarefa)
-
-      setTarefas(tarefas);
+      const res = await adicionarTodo(tarefa)
+      if(res.status){
+        carregarTarefas();
+      }else{
+        alert(res.msg)
+      }
       setValorInput("");
     } else {
       alert('Digite algo Idiota!')
@@ -60,12 +67,17 @@ const Home = props => {
   const editarTarefa = async (tarefa) => {
    // eslint-disable-next-line no-unused-vars
    // eslint-disable-next-line no-const-assign
-   const novaTarefa =  { descricao: prompt(`Digite novo valor para editar a tarefa: ${tarefa.descricao}`, tarefa.descricao) }
-   console.log(novaTarefa);
+   const novaTarefa =  { descricao: prompt(`Digite a nova descrição: ${tarefa.descricao}`, tarefa.descricao) }
+   
    if(novaTarefa.descricao !== null && novaTarefa.descricao !== undefined && novaTarefa.descricao.length > 0){
-     const tarefas = await editarTodo(tarefa, novaTarefa);
-     console.log(tarefas);
-     setTarefas(tarefas);
+     tarefa.descricao = novaTarefa.descricao;
+     const res = await editarTodo(tarefa);
+      if(res.status){
+      carregarTarefas();
+      }else{
+      alert(res.msg)
+     }
+    
    }
  
 }
@@ -83,7 +95,7 @@ const Home = props => {
             <div className="descricao">{tarefa.descricao}</div>
           </div>
           <div className="elementos">
-            <div className="editar" onClick={() => editarTarefa(tarefa)}><Icon icon={caneta} /></div>
+            <div className="editar" onClick={() => editarTarefa(tarefa)}><Icon icon={ editButton} /></div>
             <div className="excluir" onClick={() => excluirTarefa(tarefa)}><Icon icon={lixeira} /></div>
           </div>
         </li>
