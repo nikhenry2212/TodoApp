@@ -96,11 +96,12 @@
 }
 .App .TodoApp .todos .lista ul li .tarefa .situacao  svg{
  margin-right: 5px;
-color: rgb(44, 62, 161);
+color: #ffffff;
+
 cursor: pointer;
 }
 .App .TodoApp .todos .lista ul li .tarefa .situacao.ok svg{
- color: #ff0a02;
+ color: #000000;
 }
 .App .TodoApp .todos .lista ul li .excluir svg:hover{
   color: #f36565;
