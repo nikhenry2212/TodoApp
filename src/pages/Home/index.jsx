@@ -48,7 +48,7 @@ const Home = props => {
     if (valorInput.length > 0) {
 
       const tarefa = {
-        descricao: valorInput,
+        descricao: valorInput.toUpperCase(),
       }
 
       const res = await adicionarTodo(tarefa)
@@ -67,7 +67,7 @@ const Home = props => {
   const editarTarefa = async (tarefa) => {
    // eslint-disable-next-line no-unused-vars
    // eslint-disable-next-line no-const-assign
-   const novaTarefa =  { descricao: prompt(`Digite a nova descrição: ${tarefa.descricao}`, tarefa.descricao) }
+   const novaTarefa =  { descricao: prompt(`Digite a nova descrição: ${tarefa.descricao}`, tarefa.descricao).toUpperCase() }
    
    if(novaTarefa.descricao !== null && novaTarefa.descricao !== undefined && novaTarefa.descricao.length > 0){
      tarefa.descricao = novaTarefa.descricao;

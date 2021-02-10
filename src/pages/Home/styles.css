@@ -23,7 +23,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  color: rgb(191, 160, 204);
+  color: rgb(240, 240, 240);
   border: 1px solid #ccc;
   border-radius: 20px;
 }
@@ -33,7 +33,7 @@
 }
 .App .TodoApp .todos .novoTodo form{
   display: flex;
-  border: 1px solid #ccc;
+  border: 1px solid rgb(255, 255, 255);
   border-radius: 5px;
   height: 50px;
   overflow: hidden;
@@ -65,11 +65,15 @@
 .App .TodoApp .todos .lista{
   width: 90%;
   margin-top: 30px;
-  /* background-color: rgb(129, 83, 83); */
-}
+  color: #fff;
+  }
+  .descricao{
+    color: rgb(0, 0, 0);
+    font-weight: bold;
+  }
 .App .TodoApp .todos .lista ul{
   display: flex;
-  border: 1px solid #ccc;
+  border: 2px solid rgb(255, 255, 255);
   border-radius: 5px;
   flex-direction: column;
   margin: 0;
@@ -80,10 +84,11 @@
   display: flex;
   height: 50px;
   align-items: center;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 2px solid #fafafa;
   justify-content: space-between;
   padding-left: 10px;
   padding-right: 10px;
+
 
 }
 .App .TodoApp .todos .lista ul li .tarefa{
@@ -91,18 +96,18 @@
 }
 .App .TodoApp .todos .lista ul li .tarefa .situacao  svg{
  margin-right: 5px;
-color: #666;
+color: rgb(44, 62, 161);
 cursor: pointer;
 }
 .App .TodoApp .todos .lista ul li .tarefa .situacao.ok svg{
- color: #0fdf77;
+ color: #ff0a02;
 }
 .App .TodoApp .todos .lista ul li .excluir svg:hover{
   color: #f36565;
 }
 .App .TodoApp .todos .lista ul li .excluir svg{
  margin-right: 5px;
- color: #d60b0b;
+ color: #ff0a02;
  cursor: pointer;
 }
 .App .TodoApp .todos .lista ul li .elementos{
