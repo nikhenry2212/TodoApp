@@ -5,9 +5,13 @@
 .paginaLogin form{
   display: flex;
   flex-direction: column;
-  
   width: 400px;
 
+}
+.paginaLogin .logo{
+  width: 200px;
+  /* border: 1px solid #000; */
+  margin-left:100px ;
 }
 .paginaLogin h3{
   text-align: center;

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './styles.css';
+import img from'./img/logo-certa.png';
 
 const Login = props => {
 
@@ -19,6 +20,7 @@ const Login = props => {
     <div className="paginaLogin">
 
       <form onSubmit={logar}>
+       <img src={img} alt="logo" className="logo"/>
         <h3>LOGIN</h3>
         <div className="campo">
           <input type="text" name="email" value={email} onChange={(event) => setEmail(event.target.value)} placeholder="E-mail" />
