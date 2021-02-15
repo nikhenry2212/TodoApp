@@ -1,17 +1,20 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import './styles.css';
+import {useHistory} from 'react-router-dom';
 
 import { carregaTodos, concluirTodo, excluirTodo, adicionarTodo, editarTodo } from './../../services/todos';
 
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
 import { faPlusCircle as add, faTrashAlt as lixeira, faPencilAlt as editButton } from '@fortawesome/free-solid-svg-icons';
 import { faCircle as tarefaPendente, faCheckCircle as tarefaRealizada } from '@fortawesome/free-regular-svg-icons';
+import { ID_TOKEN } from '../../constants/geral';
 
 
 const Home = props => {
 
   const [tarefas, setTarefas] = useState([]);
   const [valorInput, setValorInput] = useState("");
+  const history = useHistory();
 
   const carregarTarefas = useCallback(async () => {
     const tarefasInicial = await carregaTodos();
@@ -103,9 +106,17 @@ const Home = props => {
 
     })
   }
+  const logout = () => {
+    localStorage.removeItem(ID_TOKEN);
+    history.push('/')
+  }
+
+
 
   return (
+    
     <div className="TodoApp">
+      <div><button className="btn-logout" onClick={() => logout()}>Logout</button></div>
       <div className="titulo">Todo App</div>
       <div className="todos">
         <div className="novoTodo">
